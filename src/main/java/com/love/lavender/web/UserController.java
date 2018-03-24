@@ -20,7 +20,7 @@ public class UserController {
     static Map<Long, User> userMap = Collections.synchronizedMap(new HashMap<Long, User>());
 
 
-    @ApiOperation(value = "获取用户列表", notes = "")
+    @ApiOperation(value = "获取用户列表", notes = "", response = User.class)
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<User> getUsers() {
         List<User> users = new ArrayList<>(userMap.values());
@@ -38,7 +38,7 @@ public class UserController {
     @ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息")
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable Long id) {
+    public User getUser(@RequestParam Long id) {
         return userMap.get(id);
     }
 

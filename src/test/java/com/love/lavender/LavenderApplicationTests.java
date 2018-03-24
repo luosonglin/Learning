@@ -1,5 +1,7 @@
 package com.love.lavender;
 
+import com.love.lavender.domain.User;
+import com.love.lavender.domain.UserMapper;
 import com.love.lavender.service.PersonProperties;
 import com.love.lavender.web.HelloController;
 import org.junit.Assert;
@@ -9,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
@@ -84,9 +87,20 @@ public class LavenderApplicationTests {
         //4. get
         mvc.perform(get("/users/0"))
                 .andExpect(content().string(equalTo("[{\"id\":0,\"name\":\"Songlin\"}]")));
+    }
 
+    /**
+     * 测试User
+     */
+    @Autowired
+    private UserMapper userMapper;
 
-
+    @Test
+    @Rollback
+    public void findByName() throws Exception {
+//        userMapper.insert(10, "哈哈");
+        User u = userMapper.findByName("丫头");
+        Assert.assertEquals(2, u.getId());
     }
 
 }
