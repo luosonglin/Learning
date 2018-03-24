@@ -19,6 +19,10 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -98,9 +102,49 @@ public class LavenderApplicationTests {
     @Test
     @Rollback
     public void findByName() throws Exception {
-//        userMapper.insert(10, "哈哈");
-        User u = userMapper.findByName("丫头");
-        Assert.assertEquals(2, u.getId());
+        userMapper.insert(10, "哈哈");
+//        User u = userMapper.findByName("丫头");
+//        Assert.assertEquals(2, u.getId());
+    }
+
+    @Test
+    public void insertByMap() throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", 110152);
+        map.put("name", "luo");
+        userMapper.insertByMap(map);
+    }
+
+    @Test
+    public void insertByUser() throws Exception {
+        User user = new User();
+        user.setId(3);
+        user.setName("哈哈");
+        userMapper.insertByUser(user);
+    }
+
+    @Test
+    public void update() throws Exception {
+        User user = new User();
+        user.setId(3);
+        user.setName("哈哈123");
+        userMapper.update(user);
+    }
+
+    @Test
+    public void delete() throws Exception {
+        userMapper.delete(3);
+    }
+
+    @Test
+    @Rollback
+    public void testUserMapper() throws Exception {
+        List<User> userList = userMapper.findAll();
+        for (User user: userList) {
+//            Assert.assertEquals(null, user.getId());
+//            Assert.assertNotEquals(null, user.getName());
+            System.out.print(user.getId()+" "+user.getName());
+        }
     }
 
 }
