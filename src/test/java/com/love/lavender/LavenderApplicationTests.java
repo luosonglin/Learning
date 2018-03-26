@@ -143,7 +143,7 @@ public class LavenderApplicationTests {
         for (User user: userList) {
 //            Assert.assertEquals(null, user.getId());
 //            Assert.assertNotEquals(null, user.getName());
-            System.out.print(user.getId()+" "+user.getName());
+            System.out.println(user.getId()+" "+user.getName());
         }
     }
 
